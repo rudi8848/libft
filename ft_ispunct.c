@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striter.c                                       :+:      :+:    :+:   */
+/*   ft_ispunct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 15:19:19 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:23:11 by gvynogra         ###   ########.fr       */
+/*   Created: 2017/11/14 17:53:26 by gvynogra          #+#    #+#             */
+/*   Updated: 2017/11/14 18:08:27 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striter(char *s, void (*f) (char*))
+int		ft_ispunct(int c)
 {
-	size_t	i;
-
-	i = 0;
-	if (s && f)
-	{
-		while (s[i])
-		{
-			f(&s[i]);
-			i++;
-		}
-	}
+	if (c >= 33 && c <= 39)
+		return (1);
+	else if (c >= 40 && c <= 47)
+		return (1);
+	else if (c >= 58 && c <= 63)
+		return (1);
+	else if (c == 64 || c == 123 || c == 124)
+		return (1);
+	else if (c >= 91 && c <= 96)
+		return (1);
+	else
+		return (0);
 }

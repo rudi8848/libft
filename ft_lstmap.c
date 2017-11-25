@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striter.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 15:19:19 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:23:11 by gvynogra         ###   ########.fr       */
+/*   Created: 2017/11/13 10:46:28 by gvynogra          #+#    #+#             */
+/*   Updated: 2017/11/13 10:57:45 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striter(char *s, void (*f) (char*))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	size_t	i;
+	t_list	*new;
+	t_list	*tmp;
+	t_list	*begin;
 
-	i = 0;
-	if (s && f)
+	if (!lst || !(*f))
+		return (NULL);
+	tmp = f(lst);
+	if (!(new = ft_lstnew(tmp->content, tmp->content_size)))
+		return (NULL);
+	begin = new;
+	lst = lst->next;
+	while (lst)
 	{
-		while (s[i])
-		{
-			f(&s[i]);
-			i++;
-		}
+		tmp = f(lst);
+		if (!(new->next = ft_lstnew(tmp->content, tmp->content_size)))
+			return (NULL);
+		new = new->next;
+		lst = lst->next;
 	}
+	return (begin);
 }

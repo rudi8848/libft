@@ -6,15 +6,15 @@
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 15:43:18 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:43:47 by gvynogra         ###   ########.fr       */
+/*   Updated: 2017/11/23 09:27:54 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		word_len(char const *s, int start, char c)
+static	size_t		word_len(char const *s, int start, char c)
 {
-	int len;
+	size_t		len;
 
 	len = 0;
 	while (s[start] == c)
@@ -27,10 +27,10 @@ static	int		word_len(char const *s, int start, char c)
 	return (len);
 }
 
-static	int		words_count(char const *s, char c)
+static	size_t		words_count(char const *s, char c)
 {
-	int i;
-	int count;
+	size_t		i;
+	size_t		count;
 
 	i = 0;
 	count = 0;
@@ -43,52 +43,30 @@ static	int		words_count(char const *s, char c)
 	return (count);
 }
 
-static	char	*find_word(char const *s, int start, char c)
-{
-	char	*word;
-	int		i;
-
-	i = 0;
-	word = (char*)malloc(sizeof(char) * word_len(s, start, c) + 1);
-	if (!word)
-		return (NULL);
-	while (s[start] == c)
-		start++;
-	while (s[start] != c)
-	{
-		word[i] = s[start];
-		i++;
-		start++;
-	}
-	word[i] = '\0';
-	return (word);
-}
-
-char			**ft_strsplit(char const *s, char c)
+char				**ft_strsplit(char const *s, char c)
 {
 	char		**arr;
-	int			i;
-	int			counter;
-	int			arrlen;
+	size_t		i;
+	size_t		counter;
 
 	i = 0;
 	counter = 0;
-	arrlen = words_count(s, c);
-	arr = (char**)malloc(sizeof(char*) * arrlen + 1);
-	if (!arr)
-		return (NULL);
-	while (i < arrlen && s[counter])
+	if (s && c)
 	{
-		while (s[counter] == c)
-			counter++;
-		if (s[counter] != c)
+		arr = (char**)malloc(sizeof(char*) * words_count(s, c) + 1);
+		if (!arr)
+			return (NULL);
+		while (i < words_count(s, c) && s[counter])
 		{
-			arr[i] = find_word(s, counter, c);
+			while (s[counter] == c)
+				counter++;
+			arr[i] = ft_strsub(s, counter, word_len(s, counter, c));
 			counter += word_len(s, counter, c);
+			counter++;
+			i++;
 		}
-		counter++;
-		i++;
+		arr[i++] = NULL;
+		return (arr);
 	}
-	arr[i] = NULL;
-	return (arr);
+	return (NULL);
 }

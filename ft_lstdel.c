@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striter.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 15:19:19 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:23:11 by gvynogra         ###   ########.fr       */
+/*   Created: 2017/11/13 10:28:41 by gvynogra          #+#    #+#             */
+/*   Updated: 2017/11/13 10:37:49 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striter(char *s, void (*f) (char*))
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	size_t	i;
+	t_list	*lst;
+	t_list	*nextl;
 
-	i = 0;
-	if (s && f)
+	lst = *alst;
+	while (lst)
 	{
-		while (s[i])
-		{
-			f(&s[i]);
-			i++;
-		}
+		nextl = lst->next;
+		del(lst->content, lst->content_size);
+		free(lst);
+		lst = nextl;
 	}
+	*alst = NULL;
 }

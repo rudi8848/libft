@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_printf_wstr_help.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 15:36:40 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:37:07 by gvynogra         ###   ########.fr       */
+/*   Created: 2018/04/12 11:33:58 by gvynogra          #+#    #+#             */
+/*   Updated: 2018/04/12 11:34:00 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+int		ft_putwstr(wchar_t *wstr)
 {
-	char		*sub;
-	size_t		i;
+	int		i;
+	int		ret;
 
+	ret = 0;
 	i = 0;
-	if (s)
+	while (wstr[i] != L'\0')
 	{
-		sub = (char*)ft_memalloc(sizeof(char) * (len + 1));
-		if (!sub)
-			return (NULL);
-		while (s[start] && i < len)
-		{
-			sub[i] = s[start];
-			++i;
-			++start;
-		}
-		return (sub);
+		ret += ft_putwchar(wstr[i]);
+		i++;
 	}
-	return (NULL);
+	return (ret);
+}
+
+int		ft_putwstr_prec(wchar_t *wstr, t_propt *options)
+{
+	int		i;
+	int		ret;
+
+	ret = 0;
+	i = 0;
+	while (ret < options->precision)
+	{
+		ret += ft_putwchar(wstr[i]);
+		i++;
+	}
+	return (ret);
 }

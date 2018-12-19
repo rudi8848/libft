@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 15:36:40 by gvynogra          #+#    #+#             */
-/*   Updated: 2017/11/06 15:37:07 by gvynogra         ###   ########.fr       */
+/*   Created: 2017/12/01 09:39:03 by gvynogra          #+#    #+#             */
+/*   Updated: 2017/12/01 17:35:50 by gvynogra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
-{
-	char		*sub;
-	size_t		i;
+# include "libft.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
 
-	i = 0;
-	if (s)
-	{
-		sub = (char*)ft_memalloc(sizeof(char) * (len + 1));
-		if (!sub)
-			return (NULL);
-		while (s[start] && i < len)
-		{
-			sub[i] = s[start];
-			++i;
-			++start;
-		}
-		return (sub);
-	}
-	return (NULL);
-}
+# define BUFF_SIZE 512
+
+int		get_next_line(const int fd, char **line);
+
+#endif

@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gvynogra <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/08/07 10:12:06 by gvynogra          #+#    #+#              #
-#    Updated: 2017/11/23 09:29:04 by gvynogra         ###   ########.fr        #
+#    Created: 2018/04/12 13:30:33 by gvynogra          #+#    #+#              #
+#    Updated: 2018/04/12 13:30:43 by gvynogra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,22 @@ SRCS = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c 
 	   ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c \
 	   ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c \
 	   ft_strtrim.c ft_tolower.c ft_toupper.c ft_foreach.c ft_swap.c ft_iswhitespace.c \
-	   ft_ispunct.c ft_rot_13.c
+	   ft_ispunct.c ft_rot_13.c ft_printf.c ft_printf_str.c ft_printf_parsing.c \
+	   ft_printf_wchar.c ft_printf_num.c ft_printf_nconv.c ft_printf_oct.c ft_printf_hex.c \
+	   ft_printf_unsigned.c ft_printf_signed.c ft_printf_num_help.c ft_printf_putstr_help.c \
+	   ft_printf_wstr_help.c get_next_line.c
 OBJS = $(SRCS:.c=.o)
-
+CC	 = gcc
+CFLAGS = -Wall -Wextra -Werror
+INCL = -I./includes
 
 all: $(NAME)
-$(NAME):
-	@gcc -Wall -Wextra -Werror -c $(SRCS)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
+
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) $(INCL) -c $(SRCS)
 
 clean:
 	@/bin/rm -f $(OBJS)

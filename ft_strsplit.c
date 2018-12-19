@@ -17,9 +17,9 @@ static	size_t		word_len(char const *s, int start, char c)
 	size_t		len;
 
 	len = 0;
-	while (s[start] == c)
+	while (s[start] && s[start] == c)
 		start++;
-	while (s[start] != c)
+	while (s[start] && s[start] != c)
 	{
 		len++;
 		start++;
@@ -53,7 +53,7 @@ char				**ft_strsplit(char const *s, char c)
 	counter = 0;
 	if (s && c)
 	{
-		arr = (char**)malloc(sizeof(char*) * words_count(s, c) + 1);
+		arr = (char**)malloc(sizeof(char*) * (words_count(s, c) + 1));
 		if (!arr)
 			return (NULL);
 		while (i < words_count(s, c) && s[counter])
@@ -65,7 +65,7 @@ char				**ft_strsplit(char const *s, char c)
 			counter++;
 			i++;
 		}
-		arr[i++] = NULL;
+		arr[i] = NULL;
 		return (arr);
 	}
 	return (NULL);
